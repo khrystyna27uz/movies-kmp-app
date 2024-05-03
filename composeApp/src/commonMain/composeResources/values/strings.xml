@@ -1,0 +1,9 @@
+<resources>
+    <string name="bottom_navigation_discover">Discover</string>
+    <string name="bottom_navigation_profile">Profile</string>
+    <string name="bottom_navigation_shows">Shows</string>
+    <string name="bottom_navigation_movies">Movies</string>
+    <string name="movies_tab_watch">Watch</string>
+    <string name="movies_tab_upcoming">Upcoming</string>
+    <string name="browse_all_movies">Browse all movies</string>
+</resources>
