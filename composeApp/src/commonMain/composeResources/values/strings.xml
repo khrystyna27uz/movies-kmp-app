@@ -6,4 +6,7 @@
     <string name="movies_tab_watch">Watch</string>
     <string name="movies_tab_upcoming">Upcoming</string>
     <string name="browse_all_movies">Browse all movies</string>
+    <string name="movie_review">Review</string>
+    <string name="movie_rating">%1$d / %2$d</string>
+    <string name="movie_review_helpful">%1$s of %2$d found it helpful</string>
 </resources>

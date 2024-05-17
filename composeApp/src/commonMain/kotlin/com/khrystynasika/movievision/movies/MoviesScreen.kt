@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalResourceApi::class)
+
 package com.khrystynasika.movievision.movies
 
 import androidx.compose.foundation.layout.Column
@@ -11,17 +13,19 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-//import androidx.compose.ui.res.stringResource
-//import androidx.compose.ui.tooling.preview.Preview
-//import com.movievision.R
 import com.khrystynasika.movievision.movies.upcoming.UpcomingMoviesScreen
 import com.khrystynasika.movievision.movies.watch.WatchMoviesScreen
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import movievision.composeapp.generated.resources.Res
+import movievision.composeapp.generated.resources.movies_tab_upcoming
+import movievision.composeapp.generated.resources.movies_tab_watch
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun MoviesScreen(
     modifier: Modifier = Modifier,
     onBrowseMoviesClicked: () -> Unit,
+    onMovieDetailsClicked: (id: String) -> Unit,
 ) {
     val tabs = remember {
         listOf(
@@ -46,9 +50,13 @@ fun MoviesScreen(
         when (selectedTab) {
             Tab.Watch -> WatchMoviesScreen(
                 onBrowseMoviesClicked = onBrowseMoviesClicked,
+                onMovieDetailsClicked = onMovieDetailsClicked,
             )
 
-            Tab.Upcoming -> UpcomingMoviesScreen()
+            Tab.Upcoming -> UpcomingMoviesScreen(
+                onBrowseMoviesClicked = onBrowseMoviesClicked,
+                onMovieDetailsClicked = onMovieDetailsClicked,
+            )
         }
     }
 }
@@ -59,17 +67,11 @@ private sealed interface Tab {
 
     data object Watch : Tab {
         @Composable
-        override fun title(): String = "Movies"//stringResource(id = R.string.movies_tab_watch)
+        override fun title(): String = stringResource(resource = Res.string.movies_tab_watch)
     }
 
     data object Upcoming : Tab {
         @Composable
-        override fun title(): String = "Uncoming"//stringResource(id = R.string.movies_tab_upcoming)
+        override fun title(): String = stringResource(resource = Res.string.movies_tab_upcoming)
     }
-}
-
-@Preview
-@Composable
-private fun PreviewMovieScreen() {
-    MoviesScreen(onBrowseMoviesClicked = {})
 }

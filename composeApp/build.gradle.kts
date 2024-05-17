@@ -44,7 +44,7 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.navigation.compose)
-            implementation("io.github.qdsfdhvh:image-loader:1.7.8")
+            implementation(libs.image.loader)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)

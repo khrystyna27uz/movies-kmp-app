@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.khrystynasika.movievision.home.HomeScreen
+import com.khrystynasika.movievision.movies.watch.MoviesDetailsScreen
 import com.khrystynasika.movievision.theme.MovieVisionTheme
 
 @Composable
@@ -16,8 +17,8 @@ fun App() {
     MovieVisionTheme {
         val navController = rememberNavController()
 
-        fun navigateTo(destination: NavigationDestination) {
-            navController.navigate(destination.route)
+        fun navigateTo(destination: String) {
+            navController.navigate(destination)
         }
 
         Surface(modifier = Modifier.fillMaxSize()) {
@@ -28,10 +29,12 @@ fun App() {
                 composable(NavigationDestination.Home.route) {
                     HomeScreen(navigateTo = ::navigateTo)
                 }
-
                 composable(NavigationDestination.BrowseAll.route) {
                     // TODO add screen
                     Text(text = "Browse all screen")
+                }
+                composable(NavigationDestination.MovieDetails.route) {
+                    MoviesDetailsScreen()
                 }
             }
         }

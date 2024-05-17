@@ -40,7 +40,7 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun HomeScreen(
-    navigateTo: (NavigationDestination) -> Unit,
+    navigateTo: (String) -> Unit,
 ) {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -65,9 +65,6 @@ fun HomeScreen(
                         },
                         onClick = {
                             navController.navigate(navigationItem.route) {
-//                                popUpTo(navController.graph.findStartDestination().id) {
-//                                    saveState = true
-//                                }
                                 launchSingleTop = true
                                 restoreState = true
                             }
@@ -84,7 +81,12 @@ fun HomeScreen(
         ) {
             composable(HomeNavigationDestination.Movies.route) {
                 MoviesScreen(
-                    onBrowseMoviesClicked = { navigateTo(NavigationDestination.BrowseAll) },
+                    onBrowseMoviesClicked = {
+                        navigateTo(NavigationDestination.BrowseAll.route)
+                    },
+                    onMovieDetailsClicked = {
+                        navigateTo(NavigationDestination.MovieDetails.route(it))
+                    },
                 )
             }
 
