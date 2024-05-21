@@ -2,16 +2,19 @@ package com.khrystynasika.movievision.movies.upcoming
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.khrystynasika.movievision.movies.watch.MovieList
+import org.koin.compose.koinInject
 
 @Composable
 fun UpcomingMoviesScreen(
     modifier: Modifier = Modifier,
-    viewModel: UpcomingMoviesViewModel = viewModel(),
     onBrowseMoviesClicked: () -> Unit,
     onMovieDetailsClicked: (String) -> Unit,
-) {
+
+    ) {
+
+    val viewModel: UpcomingMoviesViewModel = koinInject()
+
     MovieList(
         modifier = modifier,
         movies = viewModel.upcoming.value,

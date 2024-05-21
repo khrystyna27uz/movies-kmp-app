@@ -49,6 +49,13 @@ kotlin {
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
         }
+        val commonMain by getting {
+            dependencies {
+                implementation(libs.koin.core)
+                implementation(libs.koin.test)
+                implementation(libs.koin.compose)
+            }
+        }
     }
 }
 
@@ -83,6 +90,8 @@ android {
     }
     dependencies {
         debugImplementation(libs.compose.ui.tooling)
+        implementation(libs.koin.android)
+        implementation(libs.koin.androidx.compose)
     }
 }
 

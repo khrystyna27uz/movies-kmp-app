@@ -7,6 +7,8 @@ androidx-activityCompose = "1.9.0"
 compose = "1.6.7"
 compose-plugin = "1.6.2"
 imageLoader = "1.7.8"
+koinCompose = "1.1.5"
+koinCore = "3.5.6"
 kotlin = "1.9.23"
 navigationCompose = "2.8.0-alpha02"
 
@@ -15,6 +17,11 @@ image-loader = { module = "io.github.qdsfdhvh:image-loader", version.ref = "imag
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinCore" }
+koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koinCore" }
+koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koinCompose" }
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koinCore" }
+koin-test = { module = "io.insert-koin:koin-test", version.ref = "koinCore" }
 navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 
 [plugins]

@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalResourceApi::class)
+@file:OptIn(ExperimentalResourceApi::class, ExperimentalResourceApi::class)
 
 package com.khrystynasika.movievision.movies.watch
 
@@ -25,7 +25,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material3.AssistChip
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -71,9 +70,13 @@ import org.jetbrains.compose.resources.stringResource
 fun MoviesDetailsScreen(
     modifier: Modifier = Modifier,
 ) {
+    // TODO use Koin, resolve issue with SavedStateHandle injection
     val viewModel: MoviesDetailsViewModel = viewModel {
         MoviesDetailsViewModel(savedStateHandle = createSavedStateHandle())
     }
+
+    // val viewModel: MoviesDetailsViewModel = koinInject()
+
     val uriHandler = LocalUriHandler.current
 
     val details = viewModel.details.collectAsState().value ?: return

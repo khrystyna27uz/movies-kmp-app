@@ -2,15 +2,17 @@ package com.khrystynasika.movievision.movies.watch
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
+import org.koin.compose.koinInject
 
 @Composable
 fun WatchMoviesScreen(
     modifier: Modifier = Modifier,
-    viewModel: MoviesViewModel = viewModel(),
     onBrowseMoviesClicked: () -> Unit,
     onMovieDetailsClicked: (String) -> Unit,
 ) {
+
+    val viewModel: WatchMoviesViewModel = koinInject()
+
     MovieList(
         modifier = modifier,
         movies = viewModel.movies.value,
