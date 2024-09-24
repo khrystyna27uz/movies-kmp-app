@@ -4,11 +4,11 @@ import kotlinx.coroutines.flow.Flow
 
 interface MoviesRepository {
 
-    fun getMovies(): Flow<List<Movie>>
+    fun getMovies(page: Int): Flow<List<Movie>>
 
-    fun getUpcoming(): Flow<List<Movie>>
+    fun getUpcoming(page: Int): Flow<List<Movie>>
 
-    fun getMovieById(movieId: String): Flow<Movie>
+    fun getMovieDetailsById(movieId: Int): Flow<MovieDetails>
 
-    fun getMovieDetailsById(movieId: String): Flow<MovieDetails>
+    fun getBrowseAll(page: Int): Flow<List<Movie>>
 }

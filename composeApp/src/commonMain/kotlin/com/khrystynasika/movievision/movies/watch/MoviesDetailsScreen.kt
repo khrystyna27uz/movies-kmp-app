@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -50,18 +52,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.createSavedStateHandle
-import androidx.lifecycle.viewmodel.compose.viewModel
+import com.khrystynasika.movievision.core.koinViewModel
 import com.khrystynasika.movievision.movies.domain.FullCast
 import com.khrystynasika.movievision.movies.domain.MovieDetails
-import com.khrystynasika.movievision.movies.domain.Review
-import com.khrystynasika.movievision.movies.domain.Trailer
 import com.seiko.imageloader.rememberImagePainter
 import movievision.composeapp.generated.resources.Res
+import movievision.composeapp.generated.resources.cast_and_crew
 import movievision.composeapp.generated.resources.ic_star
 import movievision.composeapp.generated.resources.movie_rating
-import movievision.composeapp.generated.resources.movie_review
-import movievision.composeapp.generated.resources.movie_review_helpful
+import movievision.composeapp.generated.resources.movie_watch_type
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -70,12 +69,7 @@ import org.jetbrains.compose.resources.stringResource
 fun MoviesDetailsScreen(
     modifier: Modifier = Modifier,
 ) {
-    // TODO use Koin, resolve issue with SavedStateHandle injection
-    val viewModel: MoviesDetailsViewModel = viewModel {
-        MoviesDetailsViewModel(savedStateHandle = createSavedStateHandle())
-    }
-
-    // val viewModel: MoviesDetailsViewModel = koinInject()
+    val viewModel: MoviesDetailsViewModel = koinViewModel()
 
     val uriHandler = LocalUriHandler.current
 
@@ -104,7 +98,7 @@ private fun Header(
     modifier: Modifier = Modifier,
     movieDetails: MovieDetails,
 ) {
-    val painter = rememberImagePainter(movieDetails.poster)
+    val painter = rememberImagePainter(movieDetails.movie.image)
     var sizeImage by remember { mutableStateOf(IntSize.Zero) }
     val gradient = remember(sizeImage) {
         Brush.verticalGradient(
@@ -135,65 +129,59 @@ private fun Header(
         }
         Row(
             modifier = modifier
-                .padding(horizontal = 16.dp)
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Column {
+
+            Column(
+                modifier = modifier
+                    .weight(5f)
+            ) {
                 Text(
                     text = movieDetails.movie.title,
                     fontSize = 32.sp,
-                    color = Color.White
+                    color = Color.White,
                 )
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(12.dp)
-                    ) {
-                        Text(
-                            text = movieDetails.movie.year.toInt().toString(),
-                            color = Color.White
-                        )
-                        movieDetails.movie.contentRating?.let {
-                            Text(
-                                text = it,
-                                color = Color.White
-                            )
-                        }
-                        Text(
-                            //TODO convert duration
-                            text = movieDetails.movie.duration.toString(),
-                            color = Color.White
-                        )
-                    }
 
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = modifier.padding(bottom = 12.dp)
-                    ) {
-                        Image(
-                            painterResource(Res.drawable.ic_star),
-                            modifier = modifier
-                                .height(30.dp)
-                                .width(30.dp),
-                            contentDescription = "",
-                            colorFilter = ColorFilter.tint(color = Color.Yellow)
-                        )
-
-                        Text(
-                            text = stringResource(
-                                Res.string.movie_rating,
-                                movieDetails.movie.rating.rating,
-                                movieDetails.movie.rating.count,
-                            ),
-                            color = Color.White
-                        )
-                    }
-                }
-
+                Text(
+                    modifier = modifier
+                        .padding(bottom = 8.dp),
+                    text = movieDetails.movie.year,
+                    color = Color.White,
+                    fontSize = 16.sp,
+                )
             }
 
+            Spacer(
+                Modifier.weight(0.5f).fillMaxHeight().background(Color.Green)
+            )
+            Column(
+                modifier = modifier
+                    .weight(1f)
+            ) {
+                Image(
+                    painterResource(Res.drawable.ic_star),
+                    modifier = modifier
+                        .height(30.dp)
+                        .width(30.dp)
+                        .align(Alignment.CenterHorizontally),
+                    contentDescription = "",
+                    colorFilter = ColorFilter.tint(color = Color(0xFFFCC419))
+                )
+                Text(
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .align(Alignment.CenterHorizontally),
+                    fontSize = 16.sp,
+                    text = stringResource(
+                        Res.string.movie_rating,
+                        movieDetails.movie.rating
+                    ),
+                    color = Color.White
+                )
+
+            }
         }
     }
 }
@@ -211,18 +199,18 @@ private fun DetailsView(
         GenreList(
             genres = details.movie.genres
         )
-        ReviewView(review = details.review)
+        ContentView(details = details)
         HorizontalDivider(thickness = 1.dp)
 
         TrailerView(
-            trailer = details.trailer,
+            details = details,
             onClick = onTrailerClicked
         )
 
         HorizontalDivider(thickness = 1.dp)
     }
     Text(
-        "Cast & Crew",
+        stringResource(Res.string.cast_and_crew),
         fontSize = 22.sp,
         modifier = Modifier
             .padding(start = 12.dp, top = 12.dp),
@@ -250,9 +238,9 @@ private fun GenreList(
 }
 
 @Composable
-private fun ReviewView(
+private fun ContentView(
     modifier: Modifier = Modifier,
-    review: Review,
+    details: MovieDetails,
 ) {
     Column(
         modifier = modifier
@@ -264,30 +252,9 @@ private fun ReviewView(
                 .padding(bottom = 12.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            Text(
-                text = stringResource(Res.string.movie_review),
-                fontSize = 24.sp,
-                modifier = Modifier
-                    .padding(end = 16.dp)
-                    .alignByBaseline(),
-                fontWeight = FontWeight.Normal,
-            )
-            Text(
-                review.username,
-                fontStyle = FontStyle.Italic,
-                modifier = modifier
-                    .alignByBaseline()
-            )
         }
-
         Text(
-            review.title,
-            fontWeight = FontWeight.Bold,
-            modifier = modifier.padding(bottom = 12.dp)
-
-        )
-        Text(
-            review.content,
+            details.movie.overview,
             modifier = modifier
                 .padding(bottom = 12.dp)
         )
@@ -297,11 +264,7 @@ private fun ReviewView(
                 .align(Alignment.End)
         ) {
             Text(
-                text = stringResource(
-                    Res.string.movie_review_helpful,
-                    review.helpful.positive,
-                    review.helpful.total
-                ),
+                text = details.movie.tagline,
                 fontStyle = FontStyle.Italic,
                 modifier = modifier.padding(bottom = 12.dp)
             )
@@ -311,13 +274,18 @@ private fun ReviewView(
     }
 }
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 private fun TrailerView(
     modifier: Modifier = Modifier,
-    trailer: Trailer,
+    details: MovieDetails,
     onClick: (String) -> Unit
 ) {
-    val painter = rememberImagePainter(url = trailer.thumbnailUrl)
+    if (details.trailer.videoUrl == null ||
+        details.trailer.title == null ||
+        details.trailer.type == null
+    ) return
+    val painter = rememberImagePainter(url = details.movie.image)
 
     Row(
         modifier = modifier.padding(vertical = 12.dp),
@@ -333,9 +301,9 @@ private fun TrailerView(
                         width = 180.dp,
                         height = 100.dp
                     )
-                    .clickable { onClick(trailer.videoUrl) },
+                    .clickable { onClick(details.trailer.videoUrl) },
                 painter = painter,
-                contentDescription = trailer.title,
+                contentDescription = details.trailer.title,
                 contentScale = ContentScale.FillBounds,
             )
             Image(
@@ -348,9 +316,11 @@ private fun TrailerView(
         Column(
             modifier = modifier.padding(start = 12.dp)
         ) {
-            Text(trailer.title)
-            // TODO convert duration
-            Text(trailer.duration.toString())
+            Text(
+                text = stringResource(Res.string.movie_watch_type, details.trailer.type),
+                fontWeight = FontWeight.Medium
+            )
+            Text(details.trailer.title)
         }
 
     }
@@ -366,11 +336,19 @@ private fun CastCrewList(
             .padding(top = 12.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        items(fullCast.directors) { item ->
-            CastCrewItem(photo = null, name = item.name, role = item.job)
+        item {
+            (CastCrewItem(
+                photo = fullCast.director.image,
+                name = fullCast.director.name,
+                role = fullCast.director.job
+            ))
         }
         items(fullCast.actors) { item ->
-            CastCrewItem(photo = item.image, name = item.name, role = item.role)
+            CastCrewItem(
+                photo = item.image,
+                name = item.name,
+                role = item.role
+            )
         }
     }
 }
@@ -384,7 +362,6 @@ private fun CastCrewItem(
 ) {
     val painter = rememberImagePainter(
         url = photo.orEmpty(),
-        // TODO add new placeholder
         placeholderPainter = { rememberVectorPainter(Icons.Filled.Person) },
         errorPainter = { rememberVectorPainter(Icons.Filled.Person) },
     )

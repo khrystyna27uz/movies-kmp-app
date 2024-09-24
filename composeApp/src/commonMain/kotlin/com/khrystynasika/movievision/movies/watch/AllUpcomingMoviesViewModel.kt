@@ -9,7 +9,7 @@ import com.khrystynasika.movievision.movies.domain.MoviesRepository
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-class WatchMoviesViewModel(
+class AllUpcomingMoviesViewModel(
     repository: MoviesRepository
 ) : ViewModel() {
 
@@ -20,10 +20,11 @@ class WatchMoviesViewModel(
     val movies: State<List<Movie>> = _movies
 
     init {
-        repository.getMovies(page)
+        repository.getUpcoming(page)
             .onEach {
                 _movies.value = it
             }
             .launchIn(viewModelScope)
     }
+
 }

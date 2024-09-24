@@ -33,7 +33,7 @@ fun MovieList(
     modifier: Modifier = Modifier,
     movies: List<Movie>,
     onBrowseMoviesClicked: () -> Unit,
-    onMovieItemClicked: (String) -> Unit,
+    onMovieItemClicked: (Int) -> Unit,
 ) {
     val columnsCount = 3
     LazyVerticalGrid(

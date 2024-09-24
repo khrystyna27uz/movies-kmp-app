@@ -1,19 +1,13 @@
 package com.khrystynasika.movievision.movies.domain
 
-import kotlin.time.Duration
-
 data class Movie(
-    val id: String,
+    val id: Int,
     val title: String,
-    val year: Float,
+    val year: String,
     val image: String,
+    val backImage: String,
     val genres: List<String>,
-    val rating: IMDBRating,
-    val contentRating: String?,
-    val duration: Duration,
-)
-
-data class IMDBRating(
     val rating: Float,
-    val count: Int,
+    val overview: String,
+    val tagline: String
 )

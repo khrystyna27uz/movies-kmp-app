@@ -8,11 +8,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
-//import androidx.compose.material.icons.Icons
-//import androidx.compose.material.icons.filled.LiveTv
-//import androidx.compose.material.icons.filled.Movie
-//import androidx.compose.material.icons.filled.Person
-//import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -22,19 +17,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-//import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.khrystynasika.movievision.NavigationDestination
-//import com.movievision.R
-import com.khrystynasika.movievision.movies.MoviesScreen
+import com.khrystynasika.movievision.movies.MovieTab
+import com.khrystynasika.movievision.movies.TabScreen
+import com.khrystynasika.movievision.movies.upcoming.UpcomingMoviesScreen
+import com.khrystynasika.movievision.movies.watch.WatchMoviesScreen
 import movievision.composeapp.generated.resources.Res
 import movievision.composeapp.generated.resources.bottom_navigation_discover
 import movievision.composeapp.generated.resources.bottom_navigation_movies
 import movievision.composeapp.generated.resources.bottom_navigation_profile
 import movievision.composeapp.generated.resources.bottom_navigation_shows
+import movievision.composeapp.generated.resources.movies_tab_upcoming
+import movievision.composeapp.generated.resources.movies_tab_watch
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 
@@ -80,13 +78,42 @@ fun HomeScreen(
             modifier = Modifier.padding(paddingValues = paddingValues)
         ) {
             composable(HomeNavigationDestination.Movies.route) {
-                MoviesScreen(
-                    onBrowseMoviesClicked = {
-                        navigateTo(NavigationDestination.BrowseAll.route)
-                    },
-                    onMovieDetailsClicked = {
-                        navigateTo(NavigationDestination.MovieDetails.route(it))
-                    },
+                TabScreen(
+                    tabs = listOf(
+                        MovieTab(
+                            title = stringResource(resource = Res.string.movies_tab_watch),
+                            content = {
+                                WatchMoviesScreen(
+                                    onBrowseMoviesClicked = {
+                                        navigateTo(
+                                            NavigationDestination.BrowseAll.route
+                                        )
+                                    },
+                                    onMovieDetailsClicked = {
+                                        navigateTo(
+                                            NavigationDestination.MovieDetails.route(
+                                                it
+                                            )
+                                        )
+                                    }
+                                )
+                            }
+                        ),
+                        MovieTab(
+                            title = stringResource(resource = Res.string.movies_tab_upcoming),
+                            content = {
+                                UpcomingMoviesScreen(
+                                    onBrowseMoviesClicked = { navigateTo(NavigationDestination.BrowseAll.route) },
+                                    onMovieDetailsClicked = {
+                                        navigateTo(
+                                            NavigationDestination.MovieDetails.route(
+                                                it
+                                            )
+                                        )
+                                    })
+                            },
+                        )
+                    )
                 )
             }
 

@@ -3,13 +3,14 @@ package com.khrystynasika.movievision.movies.upcoming
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.khrystynasika.movievision.movies.watch.MovieList
+import com.khrystynasika.movievision.movies.watch.UpcomingMoviesViewModel
 import org.koin.compose.koinInject
 
 @Composable
 fun UpcomingMoviesScreen(
     modifier: Modifier = Modifier,
     onBrowseMoviesClicked: () -> Unit,
-    onMovieDetailsClicked: (String) -> Unit,
+    onMovieDetailsClicked: (Int) -> Unit,
 
     ) {
 

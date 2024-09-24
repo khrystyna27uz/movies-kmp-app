@@ -8,14 +8,14 @@ sealed class NavigationDestination(val route: String) {
     data object BrowseAll : NavigationDestination("browse_all")
 
     data object MovieDetails : NavigationDestination("movie_details/{id}") {
-        fun route(movieId: String): String = "movie_details/$movieId"
+        fun route(movieId: Int): String = "movie_details/$movieId"
 
         data class Arguments(
-            val movieId: String
+            val movieId: Int
         ) {
             companion object {
                 operator fun invoke(savedStateHandle: SavedStateHandle): Arguments = Arguments(
-                    movieId = savedStateHandle.get<String>("id").orEmpty(),
+                    movieId = savedStateHandle.get<String>("id")!!.toInt(),
                 )
             }
         }
