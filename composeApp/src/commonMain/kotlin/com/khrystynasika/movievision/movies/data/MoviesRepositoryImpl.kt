@@ -17,6 +17,18 @@ class MoviesRepositoryImpl internal constructor(
     override fun getUpcoming(page: Int): Flow<List<Movie>> =
         movieApi.getMoviesUpcoming().withGenres()
 
+    override fun getMoviesNowPlaying(): Flow<List<Movie>> =
+        movieApi.getMoviesNowPlaying().withGenres()
+
+    override fun getMoviesPastYear(): Flow<List<Movie>> =
+        movieApi.getMoviesPastYear().withGenres()
+
+    override fun getMoviesPopular(): Flow<List<Movie>> =
+        movieApi.getMoviesPopular().withGenres()
+
+    override fun getMoviesTopRated(): Flow<List<Movie>> =
+        movieApi.getMoviesTopRated().withGenres()
+
     override fun getMovieDetailsById(movieId: Int): Flow<MovieDetails> =
         combine(
             movieApi.getMovieById(id = movieId),
@@ -32,6 +44,9 @@ class MoviesRepositoryImpl internal constructor(
 
     override fun getBrowseAll(page: Int): Flow<List<Movie>> =
         movieApi.getMovies(page = page).withGenres()
+
+    override fun getMoviesFromSearch(query: String): Flow<List<Movie>> =
+        movieApi.getMoviesFromSearch(query = query).withGenres()
 
     private fun Flow<MovieResult>.withGenres(): Flow<List<Movie>> =
         zip(movieApi.getGenres()) { movie, genre ->

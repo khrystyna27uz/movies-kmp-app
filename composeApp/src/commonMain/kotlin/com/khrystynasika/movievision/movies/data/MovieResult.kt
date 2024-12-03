@@ -20,7 +20,7 @@ internal data class MovieResult(
         @SerialName("backdrop_path")
         val backdropPath: String?,
         @SerialName("poster_path")
-        val posterPath: String,
+        val posterPath: String?,
         @SerialName("genre_ids")
         val genreIds: List<Int>,
         @SerialName("vote_average")

@@ -2,7 +2,6 @@ package com.khrystynasika.movievision
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
@@ -10,13 +9,13 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.khrystynasika.movievision.di.appModule
 import com.khrystynasika.movievision.di.networkModule
+import com.khrystynasika.movievision.discover.browse.BrowseMoviesScreen
 import com.khrystynasika.movievision.home.HomeScreen
 import com.khrystynasika.movievision.movies.browse.BrowseAllScreen
 import com.khrystynasika.movievision.movies.moviesModule
 import com.khrystynasika.movievision.movies.watch.MoviesDetailsScreen
 import com.khrystynasika.movievision.theme.MovieVisionTheme
 import org.koin.compose.KoinApplication
-import org.koin.compose.KoinContext
 
 @Composable
 fun App() {
@@ -53,6 +52,21 @@ fun App() {
                     }
                     composable(NavigationDestination.MovieDetails.route) {
                         MoviesDetailsScreen()
+                    }
+
+                    composable(NavigationDestination.BrowseMovies.route) {
+                        BrowseMoviesScreen(
+                            onBackClicked = {
+                                navController.navigateUp()
+                            },
+                            onMovieDetailsClicked = {
+                                navigateTo(
+                                    NavigationDestination.MovieDetails.route(
+                                        it
+                                    )
+                                )
+                            }
+                        )
                     }
                 }
             }

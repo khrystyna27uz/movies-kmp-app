@@ -22,6 +22,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.khrystynasika.movievision.NavigationDestination
+import com.khrystynasika.movievision.discover.main.MainDiscoverScreen
 import com.khrystynasika.movievision.movies.MovieTab
 import com.khrystynasika.movievision.movies.TabScreen
 import com.khrystynasika.movievision.movies.upcoming.UpcomingMoviesScreen
@@ -123,8 +124,22 @@ fun HomeScreen(
             }
 
             composable(HomeNavigationDestination.Discover.route) {
-                // TODO add screen
-                Text(text = "Discover")
+                MainDiscoverScreen(
+                    onMovieDetailsClicked = {
+                        navigateTo(
+                            NavigationDestination.MovieDetails.route(
+                                it
+                            )
+                        )
+                    },
+                    onBrowseMoviesClicked = {
+                        navigateTo(
+                            NavigationDestination.BrowseMovies.route(
+                                it
+                            )
+                        )
+                    }
+                )
             }
             composable(HomeNavigationDestination.Profile.route) {
                 // TODO add screen

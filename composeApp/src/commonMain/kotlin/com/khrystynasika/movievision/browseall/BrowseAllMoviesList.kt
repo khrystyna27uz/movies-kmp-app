@@ -1,4 +1,4 @@
-package com.khrystynasika.movievision.movies.watch
+package com.khrystynasika.movievision.browseall
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
