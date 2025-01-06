@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalResourceApi::class, ExperimentalResourceApi::class)
 
-package com.khrystynasika.movievision.movies.watch
+package com.khrystynasika.movievision.movies.details
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

@@ -1,4 +1,4 @@
-package com.khrystynasika.movievision.movies.watch
+package com.khrystynasika.movievision.movies.details
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel

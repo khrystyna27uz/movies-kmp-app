@@ -13,7 +13,7 @@ import com.khrystynasika.movievision.discover.browse.BrowseMoviesScreen
 import com.khrystynasika.movievision.home.HomeScreen
 import com.khrystynasika.movievision.movies.browse.BrowseAllScreen
 import com.khrystynasika.movievision.movies.moviesModule
-import com.khrystynasika.movievision.movies.watch.MoviesDetailsScreen
+import com.khrystynasika.movievision.movies.details.MoviesDetailsScreen
 import com.khrystynasika.movievision.theme.MovieVisionTheme
 import org.koin.compose.KoinApplication
 

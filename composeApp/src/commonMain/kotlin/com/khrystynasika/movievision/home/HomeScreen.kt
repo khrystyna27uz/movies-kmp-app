@@ -2,7 +2,9 @@
 
 package com.khrystynasika.movievision.home
 
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -119,8 +121,7 @@ fun HomeScreen(
             }
 
             composable(HomeNavigationDestination.Shows.route) {
-                // TODO add screen
-                Text(text = "Shows")
+                // TODO version 2.0 add Show screen
             }
 
             composable(HomeNavigationDestination.Discover.route) {
@@ -142,8 +143,7 @@ fun HomeScreen(
                 )
             }
             composable(HomeNavigationDestination.Profile.route) {
-                // TODO add screen
-                Text(text = "Profile")
+
             }
         }
     }
