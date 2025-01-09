@@ -7,6 +7,7 @@ import com.khrystynasika.movievision.movies.watch.AllWatchMoviesViewModel
 import com.khrystynasika.movievision.movies.upcoming.AllUpcomingMoviesViewModel
 import com.khrystynasika.movievision.discover.main.DiscoverViewModel
 import com.khrystynasika.movievision.discover.browse.BrowseMoviesViewModel
+import com.khrystynasika.movievision.profile.ProfileViewModel
 import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module
 
@@ -18,4 +19,5 @@ val moviesModule = module {
     factoryOf(::AllUpcomingMoviesViewModel)
     factoryOf(::DiscoverViewModel)
     factoryOf(::BrowseMoviesViewModel)
+    factoryOf(::ProfileViewModel)
 }

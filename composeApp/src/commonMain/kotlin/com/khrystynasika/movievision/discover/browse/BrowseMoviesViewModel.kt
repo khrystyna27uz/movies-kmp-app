@@ -22,7 +22,7 @@ class BrowseMoviesViewModel(
     private val _movies = mutableStateOf<List<Movie>>(emptyList())
     val movies: State<List<Movie>> = _movies
 
-    private val _title = mutableStateOf<String>("")
+    private val _title = mutableStateOf("")
     val title: State<String> = _title
 
     init {

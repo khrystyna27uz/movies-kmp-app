@@ -2,9 +2,7 @@
 
 package com.khrystynasika.movievision.home
 
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -29,6 +27,7 @@ import com.khrystynasika.movievision.movies.MovieTab
 import com.khrystynasika.movievision.movies.TabScreen
 import com.khrystynasika.movievision.movies.upcoming.UpcomingMoviesScreen
 import com.khrystynasika.movievision.movies.watch.WatchMoviesScreen
+import com.khrystynasika.movievision.profile.ProfileScreen
 import movievision.composeapp.generated.resources.Res
 import movievision.composeapp.generated.resources.bottom_navigation_discover
 import movievision.composeapp.generated.resources.bottom_navigation_movies
@@ -143,7 +142,7 @@ fun HomeScreen(
                 )
             }
             composable(HomeNavigationDestination.Profile.route) {
-
+                ProfileScreen()
             }
         }
     }

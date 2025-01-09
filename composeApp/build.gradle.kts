@@ -113,6 +113,7 @@ android {
 //}
 
 dependencies {
+    implementation(libs.androidx.material3.android)
     add("kspCommonMainMetadata", "de.jensklingenberg.ktorfit:ktorfit-ksp:$ktorfit")
     add("kspAndroid","de.jensklingenberg.ktorfit:ktorfit-ksp:$ktorfit")
 }

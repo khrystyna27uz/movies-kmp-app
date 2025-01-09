@@ -14,11 +14,14 @@ import com.khrystynasika.movievision.home.HomeScreen
 import com.khrystynasika.movievision.movies.browse.BrowseAllScreen
 import com.khrystynasika.movievision.movies.moviesModule
 import com.khrystynasika.movievision.movies.details.MoviesDetailsScreen
-import com.khrystynasika.movievision.theme.MovieVisionTheme
+import com.khrystynasika.movievision.theme.AppTheme
 import org.koin.compose.KoinApplication
 
 @Composable
-fun App() {
+fun App(
+    darkTheme: Boolean,
+    dynamicColor: Boolean,
+) {
     KoinApplication(application = {
         modules(
             appModule,
@@ -26,7 +29,11 @@ fun App() {
             networkModule,
         )
     }) {
-        MovieVisionTheme {
+        AppTheme(
+            darkTheme = darkTheme,
+            dynamicColor = dynamicColor,
+        ) {
+
             val navController = rememberNavController()
 
             fun navigateTo(destination: String) {
