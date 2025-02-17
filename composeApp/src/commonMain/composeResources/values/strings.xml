@@ -16,4 +16,8 @@
     <string name="discover_movie_top_rated">Top Rated</string>
     <string name="discover_movie_popular">Popular</string>
     <string name="discover_movie_details_back_button_description">Back</string>
+    <string name="discover_movie_search">Search</string>
+    <string name="profile_name_placeholder">Hello, user!</string>
+    <string name="profile_section_title">Appearance</string>
+
 </resources>

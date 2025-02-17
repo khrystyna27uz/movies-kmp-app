@@ -8,6 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.khrystynasika.movievision.NavigationDestination
 import com.khrystynasika.movievision.movies.domain.Movie
 import com.khrystynasika.movievision.movies.domain.MoviesRepository
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -16,11 +18,14 @@ class BrowseMoviesViewModel(
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
+    // TODO add pagination
+    private val page = 1
+
     val movieFilter: String =
         NavigationDestination.BrowseMovies.Arguments(savedStateHandle).filter
 
-    private val _movies = mutableStateOf<List<Movie>>(emptyList())
-    val movies: State<List<Movie>> = _movies
+    private val _movies = MutableStateFlow<List<Movie>>(emptyList())
+    val movies: StateFlow<List<Movie>> = _movies
 
     private val _title = mutableStateOf("")
     val title: State<String> = _title
@@ -28,25 +33,25 @@ class BrowseMoviesViewModel(
     init {
         when (movieFilter) {
             MovieFilter.NOW_PLAYING.name -> {
-                repository.getMoviesNowPlaying()
+                repository.getMoviesNowPlaying(page = page)
                     .onEach { _movies.value = it }
                     .launchIn(viewModelScope)
             }
 
             MovieFilter.PAST_YEAR.name -> {
-                repository.getMoviesPastYear()
+                repository.getMoviesPastYear(page = page)
                     .onEach { _movies.value = it }
                     .launchIn(viewModelScope)
             }
 
             MovieFilter.TOP_RATED.name -> {
-                repository.getMoviesTopRated()
+                repository.getMoviesTopRated(page = page)
                     .onEach { _movies.value = it }
                     .launchIn(viewModelScope)
             }
 
             MovieFilter.POPULAR.name -> {
-                repository.getMoviesPopular()
+                repository.getMoviesPopular(page = page)
                     .onEach { _movies.value = it }
                     .launchIn(viewModelScope)
             }

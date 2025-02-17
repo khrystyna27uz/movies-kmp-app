@@ -18,7 +18,6 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 
-
 private  const val baseUrl = "https://api.themoviedb.org/"
 
 val networkModule = module {

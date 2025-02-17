@@ -15,6 +15,9 @@ class DiscoverViewModel(
     private val repository: MoviesRepository
 ) : ViewModel() {
 
+    // TODO add pagination
+    private val page = 1
+
     private val _movies = MutableStateFlow<List<Movie>>(emptyList())
     val movies = _movies.asStateFlow()
 
@@ -56,7 +59,7 @@ class DiscoverViewModel(
 
     // TODO find out why empty string doesn't work
     private fun searchMovies(query: String) {
-        repository.getMoviesFromSearch(query = query)
+        repository.getMoviesFromSearch(query = query, page = page)
             .onEach {
                 _movies.value = it
             }
@@ -64,25 +67,25 @@ class DiscoverViewModel(
     }
 
     init {
-        repository.getMoviesNowPlaying()
+        repository.getMoviesNowPlaying(page = page)
             .onEach {
                 _moviesNowPlaying.value = it
             }
             .launchIn(viewModelScope)
 
-        repository.getMoviesPastYear()
+        repository.getMoviesPastYear(page = page)
             .onEach {
                 _moviesPastYear.value = it
             }
             .launchIn(viewModelScope)
 
-        repository.getMoviesPopular()
+        repository.getMoviesPopular(page = page)
             .onEach {
                 _moviesPopular.value = it
             }
             .launchIn(viewModelScope)
 
-        repository.getMoviesTopRated()
+        repository.getMoviesTopRated(page = page)
             .onEach {
                 _moviesTopRated.value = it
             }

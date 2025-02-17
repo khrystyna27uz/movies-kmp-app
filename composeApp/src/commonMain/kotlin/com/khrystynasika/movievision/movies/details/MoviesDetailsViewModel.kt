@@ -17,6 +17,7 @@ class MoviesDetailsViewModel(
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
+
     private val movieId: Int =
         NavigationDestination.MovieDetails.Arguments(savedStateHandle).movieId
 

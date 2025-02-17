@@ -9,13 +9,11 @@ import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -39,47 +37,50 @@ fun BrowseMoviesScreen(
 ) {
     val viewModel: BrowseMoviesViewModel = koinViewModel()
 
-    Scaffold(topBar = {
-        TopAppBar(title = {
-            Text(
-                modifier = Modifier.fillMaxWidth(),
-                text = when (viewModel.movieFilter) {
-                    MovieFilter.NOW_PLAYING.name -> {
-                        stringResource(resource = Res.string.discover_movie_now_playing)
-                    }
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        text = when (viewModel.movieFilter) {
+                            MovieFilter.NOW_PLAYING.name -> {
+                                stringResource(resource = Res.string.discover_movie_now_playing)
+                            }
 
-                    MovieFilter.PAST_YEAR.name -> {
-                        stringResource(resource = Res.string.discover_movie_past_year)
-                    }
+                            MovieFilter.PAST_YEAR.name -> {
+                                stringResource(resource = Res.string.discover_movie_past_year)
+                            }
 
-                    MovieFilter.TOP_RATED.name -> {
-                        stringResource(resource = Res.string.discover_movie_top_rated)
-                    }
+                            MovieFilter.TOP_RATED.name -> {
+                                stringResource(resource = Res.string.discover_movie_top_rated)
+                            }
 
-                    MovieFilter.POPULAR.name -> {
-                        stringResource(resource = Res.string.discover_movie_popular)
-                    }
+                            MovieFilter.POPULAR.name -> {
+                                stringResource(resource = Res.string.discover_movie_popular)
+                            }
 
-                    else -> ""
-                },
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Medium,
-                fontStyle = FontStyle.Normal,
-                textAlign = TextAlign.Center,
+                            else -> ""
+                        },
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Medium,
+                        fontStyle = FontStyle.Normal,
+                        textAlign = TextAlign.Center,
+                    )
+                }, navigationIcon = {
+                    IconButton(onClick = { onBackClicked() }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
+                            contentDescription = stringResource(resource = Res.string.discover_movie_details_back_button_description)
+                        )
+                    }
+                })
+        }, content = { innerPadding ->
+            BrowseAllMoviesList(
+                modifier = modifier.padding(innerPadding),
+                movies = viewModel.movies.value,
+                onMovieDetailsClicked = onMovieDetailsClicked
             )
-        }, navigationIcon = {
-            IconButton(onClick = { onBackClicked() }) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
-                    contentDescription = stringResource(resource = Res.string.discover_movie_details_back_button_description)
-                )
-            }
         })
-    }, content = { innerPadding ->
-        BrowseAllMoviesList(
-            modifier = modifier.padding(innerPadding),
-            movies = viewModel.movies.value,
-            onMovieDetailsClicked = onMovieDetailsClicked
-        )
-    })
 }

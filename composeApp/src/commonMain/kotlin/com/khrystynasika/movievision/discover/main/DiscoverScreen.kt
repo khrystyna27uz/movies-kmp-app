@@ -52,6 +52,7 @@ import movievision.composeapp.generated.resources.Res
 import movievision.composeapp.generated.resources.discover_movie_now_playing
 import movievision.composeapp.generated.resources.discover_movie_past_year
 import movievision.composeapp.generated.resources.discover_movie_popular
+import movievision.composeapp.generated.resources.discover_movie_search
 import movievision.composeapp.generated.resources.discover_movie_top_rated
 import movievision.composeapp.generated.resources.ic_star
 import movievision.composeapp.generated.resources.movie_rating
@@ -68,7 +69,6 @@ fun MainDiscoverScreen(
 
     val viewModel: DiscoverViewModel = koinViewModel()
 
-    //Collecting states from ViewModel
     val searchText by viewModel.searchText.collectAsState()
     val isSearching by viewModel.isSearching.collectAsState()
     val movies by viewModel.movies.collectAsState()
@@ -88,10 +88,13 @@ fun MainDiscoverScreen(
                 modifier = Modifier
                     .fillMaxWidth(),
                 placeholder = {
-                    Text(text = "Search")
+                    Text(text = stringResource(resource = Res.string.discover_movie_search))
                 },
                 leadingIcon = {
-                    Icon(imageVector = Icons.Default.Search, contentDescription = null)
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        contentDescription = null
+                    )
                 },
                 trailingIcon = {
                     if (searchText.isNotEmpty()) {
@@ -123,7 +126,7 @@ fun MainDiscoverScreen(
                 .verticalScroll(rememberScrollState()),
         ) {
             DiscoveryItem(
-                modifier = modifier.padding(innerPadding),
+                modifier = Modifier.padding(innerPadding),
                 movies = viewModel.moviesNowPlaying.value,
                 title = stringResource(resource = Res.string.discover_movie_now_playing),
                 onMovieDetailsClicked = onMovieDetailsClicked,
@@ -216,7 +219,7 @@ private fun MovieSearchItem(
     ) {
         val painter = rememberImagePainter(movie.image)
         Image(
-            modifier = modifier
+            modifier = Modifier
                 .clip(RoundedCornerShape(4.dp))
                 .aspectRatio(9f / 12f)
                 .clickable { onMovieDetailsClicked(movie.id) },
@@ -239,30 +242,28 @@ private fun MovieSearchItem(
             )
         }
 
-        // TODO fix the position of rating Text
         Column(
-            modifier = modifier.weight(1f),
+            modifier = Modifier
+                .weight(1f),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Image(
                 painterResource(Res.drawable.ic_star),
-                modifier = modifier
+                modifier = Modifier
                     .height(30.dp)
                     .width(30.dp)
                     .align(Alignment.CenterHorizontally),
-                contentDescription = "",
+                contentDescription = null,
                 colorFilter = ColorFilter.tint(color = Color(0xFFFCC419))
             )
             Text(
-                modifier = modifier
-                    .fillMaxWidth()
+                modifier = Modifier
                     .align(Alignment.CenterHorizontally),
                 fontSize = 16.sp,
                 text = stringResource(
                     Res.string.movie_rating,
                     movie.rating
                 ),
-                color = Color.White
             )
 
         }

@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalResourceApi::class)
+
 package com.khrystynasika.movievision.profile
 
 import androidx.compose.foundation.background
@@ -27,6 +29,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.khrystynasika.movievision.core.koinViewModel
+import movievision.composeapp.generated.resources.Res
+import movievision.composeapp.generated.resources.profile_name_placeholder
+import movievision.composeapp.generated.resources.profile_section_title
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun ProfileScreen() {
@@ -69,7 +76,7 @@ private fun ProfileView(
             modifier = Modifier.padding(vertical = 16.dp),
             fontSize = 38.sp,
             fontWeight = FontWeight.Medium,
-            text = "Hello, user!"
+            text = stringResource(resource = Res.string.profile_name_placeholder)
         )
 
         HorizontalDivider()
@@ -79,7 +86,7 @@ private fun ProfileView(
                 .fillMaxWidth()
                 .padding(all = 16.dp)
                 .align(alignment = Alignment.Start),
-            text = "Appearance"
+            text = stringResource(resource = Res.string.profile_section_title)
         )
 
         val radioOptions = ThemeOptions.entries.map { it.text }

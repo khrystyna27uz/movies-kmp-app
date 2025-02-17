@@ -65,6 +65,8 @@ kotlin {
             implementation("de.jensklingenberg.ktorfit:ktorfit-converters-response:$ktorfit")
             implementation("de.jensklingenberg.ktorfit:ktorfit-converters-call:$ktorfit")
             implementation("de.jensklingenberg.ktorfit:ktorfit-converters-flow:$ktorfit")
+
+            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)

@@ -76,10 +76,11 @@ fun MoviesDetailsScreen(
     val details = viewModel.details.collectAsState().value ?: return
 
     Box(
-        modifier = Modifier.verticalScroll(rememberScrollState())
+        modifier = modifier
+            .verticalScroll(rememberScrollState())
     ) {
         Column(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxSize()
                 .padding(bottom = 12.dp)
         ) {
@@ -114,7 +115,7 @@ private fun Header(
     ) {
         Box {
             Image(
-                modifier = modifier.aspectRatio(12f / 8f)
+                modifier = Modifier.aspectRatio(12f / 8f)
                     .onGloballyPositioned {
                         sizeImage = it.size
                     },
@@ -123,19 +124,19 @@ private fun Header(
                 contentScale = ContentScale.FillBounds,
             )
             Box(
-                modifier = Modifier.matchParentSize()
+                modifier = Modifier
+                    .matchParentSize()
                     .background(gradient)
             )
         }
         Row(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-
             Column(
-                modifier = modifier
+                modifier = Modifier
                     .weight(5f)
             ) {
                 Text(
@@ -143,9 +144,8 @@ private fun Header(
                     fontSize = 32.sp,
                     color = Color.White,
                 )
-
                 Text(
-                    modifier = modifier
+                    modifier = Modifier
                         .padding(bottom = 8.dp),
                     text = movieDetails.movie.year,
                     color = Color.White,
@@ -154,15 +154,18 @@ private fun Header(
             }
 
             Spacer(
-                Modifier.weight(0.5f).fillMaxHeight().background(Color.Green)
+                modifier = Modifier
+                    .weight(0.5f)
+                    .fillMaxHeight()
+                    .background(Color.Green)
             )
             Column(
-                modifier = modifier
+                modifier = Modifier
                     .weight(1f)
             ) {
                 Image(
                     painterResource(Res.drawable.ic_star),
-                    modifier = modifier
+                    modifier = Modifier
                         .height(30.dp)
                         .width(30.dp)
                         .align(Alignment.CenterHorizontally),
@@ -170,7 +173,7 @@ private fun Header(
                     colorFilter = ColorFilter.tint(color = Color(0xFFFCC419))
                 )
                 Text(
-                    modifier = modifier
+                    modifier = Modifier
                         .fillMaxWidth()
                         .align(Alignment.CenterHorizontally),
                     fontSize = 16.sp,
@@ -210,10 +213,10 @@ private fun DetailsView(
         HorizontalDivider(thickness = 1.dp)
     }
     Text(
-        stringResource(Res.string.cast_and_crew),
-        fontSize = 22.sp,
         modifier = Modifier
             .padding(start = 12.dp, top = 12.dp),
+        text = stringResource(Res.string.cast_and_crew),
+        fontSize = 22.sp,
         fontStyle = FontStyle.Italic,
         fontWeight = FontWeight.Normal,
     )
@@ -226,7 +229,8 @@ private fun GenreList(
     genres: List<String>,
 ) {
     LazyRow(
-        modifier = modifier.padding(top = 12.dp),
+        modifier = modifier
+            .padding(top = 12.dp),
         horizontalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         items(genres) { genre ->
@@ -254,19 +258,20 @@ private fun ContentView(
         ) {
         }
         Text(
-            details.movie.overview,
-            modifier = modifier
-                .padding(bottom = 12.dp)
+            modifier = Modifier
+                .padding(bottom = 12.dp),
+            text = details.movie.overview,
         )
 
         Box(
-            modifier = modifier
+            modifier = Modifier
                 .align(Alignment.End)
         ) {
             Text(
+                modifier = Modifier
+                    .padding(bottom = 12.dp),
                 text = details.movie.tagline,
                 fontStyle = FontStyle.Italic,
-                modifier = modifier.padding(bottom = 12.dp)
             )
         }
 
@@ -285,17 +290,19 @@ private fun TrailerView(
         details.trailer.title == null ||
         details.trailer.type == null
     ) return
+
     val painter = rememberImagePainter(url = details.movie.image)
 
     Row(
-        modifier = modifier.padding(vertical = 12.dp),
+        modifier = modifier
+            .padding(vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Box(
             contentAlignment = Alignment.Center
         ) {
             Image(
-                modifier = modifier
+                modifier = Modifier
                     .clip(RoundedCornerShape(4.dp))
                     .size(
                         width = 180.dp,
@@ -307,14 +314,17 @@ private fun TrailerView(
                 contentScale = ContentScale.FillBounds,
             )
             Image(
+                modifier = Modifier
+                    .height(30.dp)
+                    .width(30.dp),
                 imageVector = Icons.Filled.PlayArrow,
-                modifier = modifier.height(30.dp).width(30.dp),
-                contentDescription = "",
+                contentDescription = null,
                 colorFilter = ColorFilter.tint(color = Color.White)
             )
         }
         Column(
-            modifier = modifier.padding(start = 12.dp)
+            modifier = Modifier
+                .padding(start = 12.dp)
         ) {
             Text(
                 text = stringResource(Res.string.movie_watch_type, details.trailer.type),
@@ -372,16 +382,15 @@ private fun CastCrewItem(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
+            modifier = Modifier
+                .height(88.dp)
+                .clip(CircleShape),
             painter = painter,
             contentDescription = null,
             contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .height(88.dp)
-                .clip(CircleShape)
         )
-
         Text(
-            modifier = modifier
+            modifier = Modifier
                 .padding(top = 12.dp),
             text = name,
             maxLines = 2,

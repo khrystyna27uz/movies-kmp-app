@@ -66,7 +66,9 @@ fun BrowseAllMoviesList(
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 private fun BrowseAllItem(
-    modifier: Modifier = Modifier, movie: Movie, onClick: () -> Unit
+    modifier: Modifier = Modifier,
+    movie: Movie,
+    onClick: () -> Unit
 ) {
     val painter = rememberImagePainter(movie.backImage)
     var sizeImage by remember { mutableStateOf(IntSize.Zero) }
@@ -79,29 +81,40 @@ private fun BrowseAllItem(
     }
 
     Box(
-        modifier = modifier, contentAlignment = Alignment.BottomStart
+        modifier = modifier,
+        contentAlignment = Alignment.BottomStart
     ) {
-        Box(modifier = modifier.clip(RoundedCornerShape(10.dp))) {
+        Box(
+            modifier = Modifier
+                .clip(RoundedCornerShape(10.dp))
+        ) {
             Image(
-                modifier = modifier.aspectRatio(12f / 7f).clickable { onClick() }.onGloballyPositioned {
+                modifier = Modifier
+                    .aspectRatio(12f / 7f)
+                    .clickable { onClick() }
+                    .onGloballyPositioned {
                         sizeImage = it.size
                     },
                 painter = painter,
-                contentDescription = "",
+                contentDescription = null,
                 contentScale = ContentScale.FillBounds,
             )
             Box(
-                modifier = Modifier.matchParentSize().background(gradient)
+                modifier = Modifier
+                    .matchParentSize()
+                    .background(gradient)
             )
         }
 
         Row(
-            modifier = modifier.fillMaxWidth().padding(horizontal = 16.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
 
             Column(
-                modifier = modifier.weight(5f)
+                modifier = Modifier.weight(5f)
             ) {
                 Text(
                     text = movie.title,
@@ -110,7 +123,8 @@ private fun BrowseAllItem(
                 )
 
                 Text(
-                    modifier = modifier.padding(bottom = 8.dp),
+                    modifier = modifier
+                        .padding(bottom = 8.dp),
                     text = movie.genres.joinToString { it },
                     color = Color.White,
                     fontSize = 16.sp,
@@ -118,19 +132,28 @@ private fun BrowseAllItem(
             }
 
             Spacer(
-                Modifier.weight(0.5f).fillMaxHeight().background(Color.Green)
+                modifier = Modifier
+                    .weight(0.5f)
+                    .fillMaxHeight()
+                    .background(Color.Green)
             )
             Column(
-                modifier = modifier.weight(1f)
+                modifier = Modifier
+                    .weight(1f)
             ) {
                 Image(
                     painterResource(Res.drawable.ic_star),
-                    modifier = modifier.height(30.dp).width(30.dp).align(Alignment.CenterHorizontally),
-                    contentDescription = "",
+                    modifier = Modifier
+                        .height(30.dp)
+                        .width(30.dp)
+                        .align(Alignment.CenterHorizontally),
+                    contentDescription = null,
                     colorFilter = ColorFilter.tint(color = Color(0xFFFCC419))
                 )
                 Text(
-                    modifier = modifier.fillMaxWidth().align(Alignment.CenterHorizontally),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.CenterHorizontally),
                     fontSize = 16.sp,
                     text = stringResource(
                         Res.string.movie_rating, movie.rating
