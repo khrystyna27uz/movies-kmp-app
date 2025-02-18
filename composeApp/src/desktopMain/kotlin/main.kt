@@ -1,3 +1,4 @@
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import com.khrystynasika.movievision.App
@@ -7,6 +8,9 @@ fun main() = application {
         onCloseRequest = ::exitApplication,
         title = "Movie Vision",
     ) {
-        App()
+        App(
+            darkTheme = isSystemInDarkTheme(),
+            dynamicColor = false,
+        )
     }
 }

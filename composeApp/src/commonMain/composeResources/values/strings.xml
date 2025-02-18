@@ -6,4 +6,18 @@
     <string name="movies_tab_watch">Watch</string>
     <string name="movies_tab_upcoming">Upcoming</string>
     <string name="browse_all_movies">Browse all movies</string>
+    <string name="movie_rating">%1$d/10</string>
+    <string name="movie_watch_type">Watch: %1$s</string>
+    <string name="cast_and_crew">Cast &amp; Crew</string>
+    <string name="movie_review_helpful">%1$s of %2$d found it helpful</string>
+
+    <string name="discover_movie_now_playing">Now Playing</string>
+    <string name="discover_movie_past_year">Released in the Past Year</string>
+    <string name="discover_movie_top_rated">Top Rated</string>
+    <string name="discover_movie_popular">Popular</string>
+    <string name="discover_movie_details_back_button_description">Back</string>
+    <string name="discover_movie_search">Search</string>
+    <string name="profile_name_placeholder">Hello, user!</string>
+    <string name="profile_section_title">Appearance</string>
+
 </resources>

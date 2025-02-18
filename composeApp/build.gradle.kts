@@ -4,7 +4,13 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
+    id("com.google.devtools.ksp") version "1.9.23-1.0.20"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.23"
+    id("de.jensklingenberg.ktorfit") version "2.0.0-beta1"
 }
+
+val ktorfit = "2.0.0-beta1"
+val ktor = "2.3.10"
 
 kotlin {
     androidTarget {
@@ -14,7 +20,8 @@ kotlin {
             }
         }
     }
-    
+
+    jvmToolchain(8)
     jvm("desktop")
     
     listOf(
@@ -43,8 +50,23 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
+            implementation(libs.lifecycle.viewmodel)
             implementation(libs.navigation.compose)
-            implementation("io.github.qdsfdhvh:image-loader:1.7.8")
+            implementation(libs.image.loader)
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose)
+            implementation("io.ktor:ktor-client-logging:$ktor")
+
+            implementation("io.ktor:ktor-client-auth:$ktor")
+            implementation("de.jensklingenberg.ktorfit:ktorfit-lib:$ktorfit")
+            implementation("io.ktor:ktor-client-serialization:$ktor")
+            implementation("io.ktor:ktor-client-content-negotiation:$ktor")
+            implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor")
+            implementation("de.jensklingenberg.ktorfit:ktorfit-converters-response:$ktorfit")
+            implementation("de.jensklingenberg.ktorfit:ktorfit-converters-call:$ktorfit")
+            implementation("de.jensklingenberg.ktorfit:ktorfit-converters-flow:$ktorfit")
+
+            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -84,6 +106,12 @@ android {
     dependencies {
         debugImplementation(libs.compose.ui.tooling)
     }
+}
+
+dependencies {
+    implementation(libs.androidx.material3.android)
+    add("kspCommonMainMetadata", "de.jensklingenberg.ktorfit:ktorfit-ksp:$ktorfit")
+    add("kspAndroid","de.jensklingenberg.ktorfit:ktorfit-ksp:$ktorfit")
 }
 
 compose.desktop {

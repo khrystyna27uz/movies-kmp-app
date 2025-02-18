@@ -1,4 +1,4 @@
-package com.khrystynasika.movievision.movies.watch
+package com.khrystynasika.movievision.movies.upcoming
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -9,20 +9,20 @@ import com.khrystynasika.movievision.movies.domain.MoviesRepository
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-class WatchMoviesViewModel(
+class UpcomingMoviesViewModel(
     repository: MoviesRepository
 ) : ViewModel() {
 
     // TODO add pagination
     private val page = 1
 
-    private val _movies = mutableStateOf<List<Movie>>(emptyList())
-    val movies: State<List<Movie>> = _movies
+    private val _upcoming = mutableStateOf<List<Movie>>(emptyList())
+    val upcoming: State<List<Movie>> = _upcoming
 
     init {
-        repository.getMovies(page)
+        repository.getUpcoming(page)
             .onEach {
-                _movies.value = it
+                _upcoming.value = it
             }
             .launchIn(viewModelScope)
     }

@@ -1,10 +1,13 @@
 package com.khrystynasika.movievision.movies.domain
 
 data class Movie(
-    val id: String,
+    val id: Int,
     val title: String,
-    val year: Float,
+    val year: String,
     val image: String,
-    val imDbRating: Float,
-    val imDbRatingCount: Int,
+    val backImage: String,
+    val genres: List<String>,
+    val rating: Float,
+    val overview: String,
+    val tagline: String
 )

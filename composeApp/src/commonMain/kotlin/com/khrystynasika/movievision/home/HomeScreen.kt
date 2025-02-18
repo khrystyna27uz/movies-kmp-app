@@ -8,11 +8,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
-//import androidx.compose.material.icons.Icons
-//import androidx.compose.material.icons.filled.LiveTv
-//import androidx.compose.material.icons.filled.Movie
-//import androidx.compose.material.icons.filled.Person
-//import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -22,25 +17,30 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-//import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.khrystynasika.movievision.NavigationDestination
-//import com.movievision.R
-import com.khrystynasika.movievision.movies.MoviesScreen
+import com.khrystynasika.movievision.discover.main.MainDiscoverScreen
+import com.khrystynasika.movievision.movies.MovieTab
+import com.khrystynasika.movievision.movies.TabScreen
+import com.khrystynasika.movievision.movies.upcoming.UpcomingMoviesScreen
+import com.khrystynasika.movievision.movies.watch.WatchMoviesScreen
+import com.khrystynasika.movievision.profile.ProfileScreen
 import movievision.composeapp.generated.resources.Res
 import movievision.composeapp.generated.resources.bottom_navigation_discover
 import movievision.composeapp.generated.resources.bottom_navigation_movies
 import movievision.composeapp.generated.resources.bottom_navigation_profile
 import movievision.composeapp.generated.resources.bottom_navigation_shows
+import movievision.composeapp.generated.resources.movies_tab_upcoming
+import movievision.composeapp.generated.resources.movies_tab_watch
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun HomeScreen(
-    navigateTo: (NavigationDestination) -> Unit,
+    navigateTo: (String) -> Unit,
 ) {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -65,9 +65,6 @@ fun HomeScreen(
                         },
                         onClick = {
                             navController.navigate(navigationItem.route) {
-//                                popUpTo(navController.graph.findStartDestination().id) {
-//                                    saveState = true
-//                                }
                                 launchSingleTop = true
                                 restoreState = true
                             }
@@ -83,23 +80,69 @@ fun HomeScreen(
             modifier = Modifier.padding(paddingValues = paddingValues)
         ) {
             composable(HomeNavigationDestination.Movies.route) {
-                MoviesScreen(
-                    onBrowseMoviesClicked = { navigateTo(NavigationDestination.BrowseAll) },
+                TabScreen(
+                    tabs = listOf(
+                        MovieTab(
+                            title = stringResource(resource = Res.string.movies_tab_watch),
+                            content = {
+                                WatchMoviesScreen(
+                                    onBrowseMoviesClicked = {
+                                        navigateTo(
+                                            NavigationDestination.BrowseAll.route
+                                        )
+                                    },
+                                    onMovieDetailsClicked = {
+                                        navigateTo(
+                                            NavigationDestination.MovieDetails.route(
+                                                it
+                                            )
+                                        )
+                                    }
+                                )
+                            }
+                        ),
+                        MovieTab(
+                            title = stringResource(resource = Res.string.movies_tab_upcoming),
+                            content = {
+                                UpcomingMoviesScreen(
+                                    onBrowseMoviesClicked = { navigateTo(NavigationDestination.BrowseAll.route) },
+                                    onMovieDetailsClicked = {
+                                        navigateTo(
+                                            NavigationDestination.MovieDetails.route(
+                                                it
+                                            )
+                                        )
+                                    })
+                            },
+                        )
+                    )
                 )
             }
 
             composable(HomeNavigationDestination.Shows.route) {
-                // TODO add screen
-                Text(text = "Shows")
+                // TODO version 2.0 add Show screen
             }
 
             composable(HomeNavigationDestination.Discover.route) {
-                // TODO add screen
-                Text(text = "Discover")
+                MainDiscoverScreen(
+                    onMovieDetailsClicked = {
+                        navigateTo(
+                            NavigationDestination.MovieDetails.route(
+                                it
+                            )
+                        )
+                    },
+                    onBrowseMoviesClicked = {
+                        navigateTo(
+                            NavigationDestination.BrowseMovies.route(
+                                it
+                            )
+                        )
+                    }
+                )
             }
             composable(HomeNavigationDestination.Profile.route) {
-                // TODO add screen
-                Text(text = "Profile")
+                ProfileScreen()
             }
         }
     }

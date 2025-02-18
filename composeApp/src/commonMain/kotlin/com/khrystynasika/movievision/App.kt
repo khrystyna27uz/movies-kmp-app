@@ -2,36 +2,79 @@ package com.khrystynasika.movievision
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.khrystynasika.movievision.di.appModule
+import com.khrystynasika.movievision.di.networkModule
+import com.khrystynasika.movievision.discover.browse.BrowseMoviesScreen
 import com.khrystynasika.movievision.home.HomeScreen
-import com.khrystynasika.movievision.theme.MovieVisionTheme
+import com.khrystynasika.movievision.movies.browse.BrowseAllScreen
+import com.khrystynasika.movievision.movies.moviesModule
+import com.khrystynasika.movievision.movies.details.MoviesDetailsScreen
+import com.khrystynasika.movievision.theme.AppTheme
+import org.koin.compose.KoinApplication
 
 @Composable
-fun App() {
-    MovieVisionTheme {
-        val navController = rememberNavController()
+fun App(
+    darkTheme: Boolean,
+    dynamicColor: Boolean,
+) {
+    KoinApplication(application = {
+        modules(
+            appModule,
+            moviesModule,
+            networkModule,
+        )
+    }) {
+        AppTheme(
+            darkTheme = darkTheme,
+            dynamicColor = dynamicColor,
+        ) {
 
-        fun navigateTo(destination: NavigationDestination) {
-            navController.navigate(destination.route)
-        }
+            val navController = rememberNavController()
 
-        Surface(modifier = Modifier.fillMaxSize()) {
-            NavHost(
-                navController = navController,
-                startDestination = NavigationDestination.Home.route,
-            ) {
-                composable(NavigationDestination.Home.route) {
-                    HomeScreen(navigateTo = ::navigateTo)
-                }
+            fun navigateTo(destination: String) {
+                navController.navigate(destination)
+            }
 
-                composable(NavigationDestination.BrowseAll.route) {
-                    // TODO add screen
-                    Text(text = "Browse all screen")
+            Surface(modifier = Modifier.fillMaxSize()) {
+                NavHost(
+                    navController = navController,
+                    startDestination = NavigationDestination.Home.route,
+                ) {
+                    composable(NavigationDestination.Home.route) {
+                        HomeScreen(navigateTo = ::navigateTo)
+                    }
+                    composable(NavigationDestination.BrowseAll.route) {
+                        BrowseAllScreen(onMovieDetailsClicked = {
+                            navigateTo(
+                                NavigationDestination.MovieDetails.route(
+                                    it
+                                )
+                            )
+                        })
+                    }
+                    composable(NavigationDestination.MovieDetails.route) {
+                        MoviesDetailsScreen()
+                    }
+
+                    composable(NavigationDestination.BrowseMovies.route) {
+                        BrowseMoviesScreen(
+                            onBackClicked = {
+                                navController.navigateUp()
+                            },
+                            onMovieDetailsClicked = {
+                                navigateTo(
+                                    NavigationDestination.MovieDetails.route(
+                                        it
+                                    )
+                                )
+                            }
+                        )
+                    }
                 }
             }
         }

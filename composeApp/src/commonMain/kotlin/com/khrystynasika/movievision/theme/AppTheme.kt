@@ -3,11 +3,8 @@ package com.khrystynasika.movievision.theme
 import androidx.compose.runtime.Composable
 
 @Composable
-expect fun MovieVisionTheme(
-    content: @Composable () -> Unit
-)
-
-@Composable
-expect fun PreviewTheme(
+expect fun AppTheme(
+    darkTheme: Boolean,
+    dynamicColor: Boolean,
     content: @Composable () -> Unit
 )
