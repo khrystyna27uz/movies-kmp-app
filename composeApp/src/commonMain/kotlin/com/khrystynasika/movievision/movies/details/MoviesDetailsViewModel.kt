@@ -17,7 +17,6 @@ class MoviesDetailsViewModel(
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
-
     private val movieId: Int =
         NavigationDestination.MovieDetails.Arguments(savedStateHandle).movieId
 
@@ -29,5 +28,4 @@ class MoviesDetailsViewModel(
             .onEach { _details.value = it }
             .launchIn(viewModelScope)
     }
-
 }

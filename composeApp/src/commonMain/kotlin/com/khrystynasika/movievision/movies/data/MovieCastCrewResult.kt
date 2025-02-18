@@ -52,5 +52,3 @@ fun MovieCastCrewResult.toFullCast(): FullCast =
         actors = cast.map { it.toCrew() }
     )
 
-
-

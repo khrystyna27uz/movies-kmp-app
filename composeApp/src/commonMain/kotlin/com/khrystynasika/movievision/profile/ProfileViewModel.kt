@@ -6,6 +6,7 @@ class ProfileViewModel : ViewModel() {
 
     fun onOptionSelected(selected: String) {
 
+        // TODO add change theme feature
         when (selected) {
             ThemeOptions.SYSTEM_DEFAULT.name -> {}
             ThemeOptions.LIGHT.name -> {}

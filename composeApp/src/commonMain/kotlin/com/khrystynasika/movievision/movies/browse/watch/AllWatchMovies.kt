@@ -18,6 +18,5 @@ fun AllWatchMovie(
         movies = viewModel.movies.value,
         onMovieDetailsClicked = onMovieDetailsClicked
     )
-
 }
 

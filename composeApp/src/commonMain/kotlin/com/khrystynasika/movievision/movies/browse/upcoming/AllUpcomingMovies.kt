@@ -19,5 +19,4 @@ fun AllUpcomingMovies(
         movies = viewModel.movies.value,
         onMovieDetailsClicked = onMovieDetailsClicked
     )
-
 }

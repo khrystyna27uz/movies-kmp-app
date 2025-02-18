@@ -10,8 +10,7 @@ fun UpcomingMoviesScreen(
     modifier: Modifier = Modifier,
     onBrowseMoviesClicked: () -> Unit,
     onMovieDetailsClicked: (Int) -> Unit,
-
-    ) {
+) {
 
     val viewModel: UpcomingMoviesViewModel = koinInject()
 

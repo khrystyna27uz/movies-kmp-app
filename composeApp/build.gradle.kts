@@ -107,12 +107,6 @@ android {
         debugImplementation(libs.compose.ui.tooling)
     }
 }
-//
-//tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-//    kotlinOptions {
-//        jvmTarget = "11"
-//    }
-//}
 
 dependencies {
     implementation(libs.androidx.material3.android)

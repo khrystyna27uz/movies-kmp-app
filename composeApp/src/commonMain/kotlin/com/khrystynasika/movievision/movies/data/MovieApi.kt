@@ -91,5 +91,3 @@ internal interface MovieApi {
         @Query("query") query: String
     ): Flow<MovieResult>
 }
-
-

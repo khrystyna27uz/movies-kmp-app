@@ -49,8 +49,7 @@ fun BrowseAllMoviesList(
     modifier: Modifier = Modifier,
     movies: List<Movie>,
     onMovieDetailsClicked: (Int) -> Unit,
-
-    ) {
+) {
     LazyColumn(
         modifier = modifier,
         contentPadding = PaddingValues(16.dp),
@@ -79,7 +78,6 @@ private fun BrowseAllItem(
             endY = sizeImage.height.toFloat(),
         )
     }
-
     Box(
         modifier = modifier,
         contentAlignment = Alignment.BottomStart
@@ -105,14 +103,12 @@ private fun BrowseAllItem(
                     .background(gradient)
             )
         }
-
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-
             Column(
                 modifier = Modifier.weight(5f)
             ) {
@@ -130,7 +126,6 @@ private fun BrowseAllItem(
                     fontSize = 16.sp,
                 )
             }
-
             Spacer(
                 modifier = Modifier
                     .weight(0.5f)
@@ -160,7 +155,6 @@ private fun BrowseAllItem(
                     ),
                     color = Color.White
                 )
-
             }
         }
     }
